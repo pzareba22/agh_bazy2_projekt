@@ -10,5 +10,9 @@ Projekt jest backendem dla systemu zarządzającym siecią kolei, umoźliwiając
 ## Autorzy
 
 Paweł Zaręba
+
+
 Kamil Bizoń
+
+
 Bogumiła Papiernik
