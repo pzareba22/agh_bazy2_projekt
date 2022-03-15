@@ -4,7 +4,7 @@ Projekt jest backendem dla systemu zarządzającym siecią kolei, umoźliwiając
 
 ## Technologie
 
--   SQL
+-   MySQL
 -   Node JS
 -   Vue JS
 
