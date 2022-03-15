@@ -6,6 +6,7 @@ Projekt jest backendem dla systemu zarządzającym siecią kolei, umoźliwiając
 
 -   SQL
 -   Node JS
+-   Vue JS
 
 ## Autorzy
 
