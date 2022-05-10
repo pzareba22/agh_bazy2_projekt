@@ -1,5 +1,4 @@
-# System do zarządzania koleją
-
+# Aplikacja dla wolontariuszy - AidMate
 
 Projekt jest aplikacją ułatwiającą proces łączenia wolontariuszy z akcjami charytatywnymi organizowanymi przez innych.
 Umożliwia ona między innymi:
