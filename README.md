@@ -1,12 +1,19 @@
 # System do zarządzania koleją
 
-Projekt jest backendem dla systemu zarządzającym siecią kolei, umoźliwiającym w szczególności: Wyszukanie poszczególnej trasy, sprawdzenie dostępnych miejsc na niej oraz zaproponowanie alternatyw
+
+Projekt jest aplikacją ułatwiającą proces łączenia wolontariuszy z akcjami charytatywnymi organizowanymi przez innych.
+Umożliwia ona między innymi:
+- Rejestrację użytkownika
+- Logowanie użytkownika
+- Zapisanie się na daną akcję
+- Utworzenie nowej akcji
+- Sprawdzenie historii użytkownika
 
 ## Technologie
 
--   MySQL
+-   MongoDB
 -   Node JS
--   Vue JS
+-   React Native
 
 ## Autorzy
 
