@@ -2,7 +2,8 @@
 import axios from "axios";
 // Next we make an 'instance' of it
 
-const ngrokAddress = 'http://ffbd-195-150-192-250.ngrok.io'
+// const ngrokAddress = 'http://ffbd-195-150-192-250.ngrok.io'
+const ngrokAddress = "https://9e81-149-156-126-11.eu.ngrok.io/";
 const useNgrokAddress = true;
 
 const axiosInstance = axios.create({
