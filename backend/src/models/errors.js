@@ -8,44 +8,49 @@ class HttpError extends Error {
 
 class InvalidLoginCredentialsError extends HttpError {
     constructor(message) {
-        super(message, 401, 'InvalidLoginCredentialsError');
+        super(message, 401, "InvalidLoginCredentialsError");
     }
 }
 
 class UnauthorizedError extends HttpError {
     constructor(message) {
-        super(message, 401, 'UnauthorizedError');
+        super(message, 401, "UnauthorizedError");
     }
 }
 
-
 class RequestForbiddenError extends HttpError {
     constructor(message) {
-        super(message, 403, 'RequestForbiddenError');
+        super(message, 403, "RequestForbiddenError");
     }
 }
 
 class ResourceNotFoundError extends HttpError {
     constructor(message) {
-        super(message, 404, 'ResourceNotFoundError');
+        super(message, 404, "ResourceNotFoundError");
     }
 }
 
 class UserWithThisNameAlreadyExists extends HttpError {
     constructor(message) {
-        super(message, 400, 'UserWithThisNameAlreadyExists');
+        super(message, 400, "UserWithThisNameAlreadyExists");
     }
 }
 
 class AlreadyJoinedThisEvent extends HttpError {
     constructor(message) {
-        super(message, 400, 'AlreadyJoinedThisEvent');
+        super(message, 400, "AlreadyJoinedThisEvent");
+    }
+}
+
+class IsNotParticipatingInThisEvent extends HttpError {
+    constructor(message) {
+        super(message, 400, "IsNotParticipatingInThisEvent");
     }
 }
 
 class AlreadyConfirmedEventParticipation extends HttpError {
     constructor(message) {
-        super(message, 400, 'AlreadyConfirmedEventParticipation');
+        super(message, 400, "AlreadyConfirmedEventParticipation");
     }
 }
 
@@ -55,5 +60,6 @@ module.exports = {
     UserWithThisNameAlreadyExists,
     ResourceNotFoundError,
     AlreadyJoinedThisEvent,
-    AlreadyConfirmedEventParticipation
-}
+    AlreadyConfirmedEventParticipation,
+    IsNotParticipatingInThisEvent,
+};
