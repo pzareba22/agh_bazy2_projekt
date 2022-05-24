@@ -5,6 +5,8 @@ import { IEvent, IUser } from "../constants";
 import { connect } from "react-redux";
 import axios from "../axiosconfig";
 import { setEventListAction } from "../actions";
+import { useEffect } from "react";
+import { useState } from "react";
 
 interface IProps {
   route: {
@@ -29,11 +31,28 @@ const EventDetails: React.FC<IProps> = ({
 
   const loggedInUser = !!user && !!user.username && user.username != "Anonim";
 
+  const [eventParticipants, setEventParticipants] = useState<Array<String>>([]);
+
   const userExistInEvent =
     loggedInUser &&
     !!(event?.participants || []).find(
       ({ participantUsername }) => participantUsername === user.username
     );
+
+  useEffect(() => {
+    if (loggedInUser) {
+      axios
+        .get(`/events/${event.id}/participants`, {
+          headers: { Authorization: `Bearer ${user.JWT}` },
+        })
+        .then(({ data }) => {
+          setEventParticipants(data.data);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
+  }, []);
 
   const joinEvent = (dispatch: (eventList: IEvent[]) => void) => {
     axios
@@ -48,11 +67,43 @@ const EventDetails: React.FC<IProps> = ({
       )
       .then(({ data }) => {
         Alert.alert("Sukces!", "Dołączyłeś do wydarzenia!", [{ text: "OK" }]);
+        setEventParticipants([user.username, ...eventParticipants]);
         fetchEventList(dispatch);
       })
       .catch((err) => {
         console.log(err);
         Alert.alert("Błąd", "Nie udało się dołączyć do eventu. ", [
+          { text: "OK" },
+        ]);
+        return;
+      });
+  };
+
+  const leaveEvent = (dispatch: (eventList: IEvent[]) => void) => {
+    axios
+      .post(
+        `/events/${event.id}/leave`,
+        { participantUsername: user.username },
+        {
+          headers: {
+            Authorization: `Bearer ${user.JWT}`,
+          },
+        }
+      )
+      .then(({ data }) => {
+        Alert.alert("Sukces", "Wypisałeś się z wydarzenia :C", [
+          { text: "Ok" },
+        ]);
+        setEventParticipants(
+          eventParticipants.filter(
+            (participant) => participant != user.username
+          )
+        );
+        fetchEventList(dispatch);
+      })
+      .catch((err) => {
+        console.log(err);
+        Alert.alert("Błąd", "Nie udało się wypisać z eventu. ", [
           { text: "OK" },
         ]);
         return;
@@ -73,6 +124,8 @@ const EventDetails: React.FC<IProps> = ({
         return;
       });
   };
+
+  // const fetchEventParticipants
 
   return (
     <View>
@@ -118,15 +171,17 @@ const EventDetails: React.FC<IProps> = ({
               />
             </View>
 
-            <Pressable
-              style={styles.button}
-              onPress={() => {
-                joinEvent(setEventList);
-              }}
-              disabled={!loggedInUser || userExistInEvent}
-            >
-              <Text style={styles.buttonText}>Zapisz się</Text>
-            </Pressable>
+            {!userExistInEvent && (
+              <Pressable
+                style={styles.button}
+                onPress={() => {
+                  joinEvent(setEventList);
+                }}
+                disabled={!loggedInUser || userExistInEvent}
+              >
+                <Text style={styles.buttonText}>Zapisz się</Text>
+              </Pressable>
+            )}
 
             {!loggedInUser && (
               <View style={styles.center}>
@@ -141,6 +196,14 @@ const EventDetails: React.FC<IProps> = ({
                 <Text style={styles.loginFirst}>
                   Zapisałeś się już na to wydarzenie!
                 </Text>
+                <Pressable
+                  style={styles.button}
+                  onPress={() => {
+                    leaveEvent(setEventList);
+                  }}
+                >
+                  <Text style={styles.buttonText}>Wypisz się</Text>
+                </Pressable>
               </View>
             )}
 
@@ -150,6 +213,15 @@ const EventDetails: React.FC<IProps> = ({
             <Text style={styles.description}>{event.description}</Text>
 
             <View style={styles.horizontalRule} />
+
+            <Text style={styles.descriptionHeader}>Zapisani użytkownicy:</Text>
+            {eventParticipants.map((participant, i) => {
+              return (
+                <Text style={styles.description} key={i}>
+                  {participant}
+                </Text>
+              );
+            })}
           </View>
         </>
       )}
@@ -222,7 +294,7 @@ const styles = StyleSheet.create({
   },
   center: {
     justifyContent: "center",
-    flexDirection: "row",
+    // flexDirection: "row",
   },
   loginFirst: {
     color: "#DC143C",
