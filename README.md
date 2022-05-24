@@ -5,8 +5,9 @@ Umożliwia ona między innymi:
 - Rejestrację użytkownika
 - Logowanie użytkownika
 - Zapisanie się na daną akcję
+- Wypisanie się z danej akcji
 - Utworzenie nowej akcji
-- Sprawdzenie historii użytkownika
+- Wgląd w innych uczetników danej akcji
 
 ## Technologie
 
