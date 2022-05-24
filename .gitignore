@@ -1,0 +1,8 @@
+/frontend/node_modules
+/frontend/web-build
+/frontend/dist
+
+/backend/node_modules
+
+.env
+.env.test
